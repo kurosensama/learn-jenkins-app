@@ -33,7 +33,7 @@ pipeline {
                     ls -la
                     node --version
                     npm --version
-
+                    (ls build/index.html >> /dev/null 2>&1 && return 0) || return 1
                 '''
             }
         }
