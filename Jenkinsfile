@@ -17,7 +17,6 @@ pipeline {
                     npm --version
                     npm ci
                     npm run build
-                    rm -f build/index.html
                     ls -la
                 '''
             }
@@ -35,6 +34,7 @@ pipeline {
                     node --version
                     npm --version
                     (ls build/index.html >> /dev/null 2>&1 && return 0) || return 1
+                    npm test build/
                 '''
             }
         }
