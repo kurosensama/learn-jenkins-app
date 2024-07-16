@@ -17,6 +17,7 @@ pipeline {
                     npm --version
                     npm ci
                     npm run build
+                    npm install serve
                     ls -la
                 '''
             }
@@ -34,8 +35,21 @@ pipeline {
                     node --version
                     npm --version
                     (ls build/index.html >> /dev/null 2>&1 && return 0) || return 1
-                    cd build
                     npm test
+                '''
+            }
+        }
+        stage('E2E') {
+            agent{
+                docker{
+                    image 'mcr.microsoft.com/playwright:v1.45.1-jammy'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    node_modules/.bin/serve -s build
+                    npx playwright test
                 '''
             }
         }
