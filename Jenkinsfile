@@ -50,7 +50,7 @@ pipeline {
                 sh '''
                     node_modules/.bin/serve -s build &
                     sleep 10
-                    sudo npx playwright test --reporter=html
+                    npx playwright test --reporter=html
                 '''
             }
         }
