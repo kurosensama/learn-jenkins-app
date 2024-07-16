@@ -44,14 +44,13 @@ pipeline {
                 docker{
                     image 'mcr.microsoft.com/playwright:v1.45.1-jammy'
                     reuseNode true
-                    args "-u root:root"
                 }
             }
             steps {
                 sh '''
                     node_modules/.bin/serve -s build &
                     sleep 10
-                    npx playwright test --reporter=html
+                    sudo npx playwright test --reporter=html
                 '''
             }
         }
